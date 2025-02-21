@@ -3,30 +3,35 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    <h1> {{ title }} </h1>
-    <a href=" {{ path('AdicionarEmpresaController') }} " class="btn btn-primary">Adicionar</a>
-
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>Empresa</td>
-                    <td>CNPJ</td>
-                    <td>Ações</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for empresa in empresas %}
-                    <tr>
-                        <td>{{empresa.nome}}</td>
-                        <td>{{empresa.cnpj}}</td>
-                        <td>
-                            <a href=" {{ path('EditarEmpresaController', {id: empresa.id}) }}" class="btn btn-primary">Editar</a>
-                            <a href=" {{ path('ExcluirEmpresaController', {id: empresa.id}) }}#" class="btn btn-secondary">Excluir</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <h1 class="d-flex justify-content-center mt-5 mb-3"> {{ title }} </h1>
+    <p class="d-flex justify-content-center">
+        <a href=" {{ path('AdicionarEmpresaController') }} " class="btn btn-primary">+</a>
+    </p>
+    <div class="container pt-2 pb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Empresa</td>
+                            <td>CNPJ</td>
+                            <td>Ações</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empresa in empresas %}
+                            <tr>
+                                <td>{{empresa.nome}}</td>
+                                <td>{{empresa.cnpj}}</td>
+                                <td>
+                                    <a href=" {{ path('EditarEmpresaController', {id: empresa.id}) }}" class="btn btn-primary">Editar</a>
+                                    <a href=" {{ path('ExcluirEmpresaController', {id: empresa.id}) }}#" class="btn btn-secondary">Excluir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

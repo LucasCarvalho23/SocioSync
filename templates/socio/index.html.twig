@@ -3,34 +3,40 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    <h1> {{ title }} </h1>
-    <a href=" {{ path('AdicionarSocioController') }} " class="btn btn-primary">Adicionar</a>
+    <h1 class="d-flex justify-content-center mt-5 mb-3"> {{ title }} </h1>
+    <p class="d-flex justify-content-center">
+        <a href=" {{ path('AdicionarSocioController') }} " class="btn btn-primary">+</a>
+    </p>
 
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>Nome</td>
-                    <td>CPF</td>
-                    <td>Email</td>
-                    <td>Empresa Vinculada</td>
-                    <td>Ações</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for socio in socios %}
-                    <tr>
-                        <td>{{socio.nome}}</td>
-                        <td>{{socio.cpf}}</td>
-                        <td>{{socio.email}}</td>
-                        <td>{{socio.empresa.nome}}</td>
-                        <td>
-                            <a href=" {{ path('EditarSocioController', {id: socio.id}) }}" class="btn btn-primary">Editar</a>
-                            <a href=" {{ path('ExcluirSocioController', {id: socio.id}) }}#" class="btn btn-secondary">Excluir</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container pt-2 pb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>CPF</td>
+                            <td>Email</td>
+                            <td>Empresa Vinculada</td>
+                            <td>Ações</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for socio in socios %}
+                            <tr>
+                                <td>{{socio.nome}}</td>
+                                <td>{{socio.cpf}}</td>
+                                <td>{{socio.email}}</td>
+                                <td>{{socio.empresa.nome}}</td>
+                                <td>
+                                    <a href=" {{ path('EditarSocioController', {id: socio.id}) }}" class="btn btn-primary">Editar</a>
+                                    <a href=" {{ path('ExcluirSocioController', {id: socio.id}) }}#" class="btn btn-secondary">Excluir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
