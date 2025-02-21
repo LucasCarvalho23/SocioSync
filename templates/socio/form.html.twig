@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} 
+    {{ title }} 
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1> {{ title }} </h1>
+                {{ form(form) }}
+                <a href=" {{ path('SocioController') }} " class="btn btn-primary">Lista</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
