@@ -14,9 +14,12 @@
 
         #[Route('/empresa', name: 'EmpresaController')]
         public function read(EmpresaRepository $empresaRepository) : Response {
+
             $data['empresas'] = $empresaRepository->findAll();
             $data['title'] = 'Visualizar empresas';
+            
             return $this->render('empresa/index.html.twig', $data);
+
         }
 
 
@@ -36,6 +39,25 @@
             $data['form'] = $form;
 
             return $this->render('empresa/form.html.twig', $data);
+        }
+
+
+        #[Route('/empresa/editar/{id}', name: 'EditarEmpresaController')] 
+        public function update($id, Request $request, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
+            $empresa = $empresaRepository->find($id);
+            $form = $this->createForm(EmpresaType::class, $empresa);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
+                return $this->redirectToRoute('EmpresaController');
+            }
+
+            $data['title'] = 'Editar empresa';
+            $data['form'] = $form;
+
+            return $this->render('empresa/form.html.twig', $data);
+
         }
     }
 

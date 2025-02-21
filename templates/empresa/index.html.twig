@@ -21,7 +21,7 @@
                         <td>{{empresa.nome}}</td>
                         <td>{{empresa.cnpj}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Editar</a>
+                            <a href=" {{ path('EditarEmpresaController', {id: empresa.id}) }}" class="btn btn-primary">Editar</a>
                             <a href="#" class="btn btn-secondary">Excluir</a>
                         </td>
                     </tr>
