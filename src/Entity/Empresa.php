@@ -6,6 +6,7 @@ use App\Repository\EmpresaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EmpresaRepository::class)]
 class Empresa
@@ -13,12 +14,15 @@ class Empresa
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["api_list"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["api_list"])]
     private ?string $nome = null;
 
     #[ORM\Column(length: 14)]
+    #[Groups(["api_list"])]
     private ?string $cnpj = null;
 
     /**

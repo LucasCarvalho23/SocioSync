@@ -4,6 +4,7 @@ namespace App\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\SocioRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SocioRepository::class)]
 class Socio
@@ -11,6 +12,7 @@ class Socio
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["api_list"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -21,6 +23,7 @@ class Socio
         minMessage: 'Você precisa colocar um nome válido.',
         maxMessage: 'Nome está grande demais. Reduza até 255 caracteres',
     )]
+    #[Groups(["api_list"])]
     private ?string $nome = null;
 
     #[ORM\Column(length: 11)]
@@ -31,13 +34,16 @@ class Socio
         minMessage: 'Você precisa colocar um CPF válido.',
         maxMessage: 'CPF está grande demais.',
     )]
+    #[Groups(["api_list"])]
     private ?string $cpf = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["api_list"])]
     private ?string $email = null;
 
     #[ORM\ManyToOne(inversedBy: 'socios')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["api_list"])]
     private ?Empresa $empresa = null;
 
     public function getId(): ?int
