@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h1>Entrar</h1>
+                {% if erro %}
+                    <div>{{ erro.messageKey|trans(erro.messageData, 'security') }}</div>
+                {% endif %}
+                <form action="{{ path('login') }}" method="post">
+                    <input type="hidden" name="_target_path" value="/socio">
+                    <label for="username" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="username" name="_username" value="{{ lastUsername }}">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="password" name="_password">
+                    <button type="submit" class="btn btn-success">Entrar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -14,6 +14,7 @@
     class EmpresaController extends AbstractController {
 
         #[Route('/empresa', name: 'EmpresaController')]
+        #[IsGranted('ROLE_USER')]
 
         public function read(EmpresaRepository $empresaRepository) : Response {
 
@@ -26,6 +27,7 @@
 
 
         #[Route('/empresa/adicionar', name: 'AdicionarEmpresaController')]
+        #[IsGranted('ROLE_USER')]
 
         public function create(Request $request, EntityManagerInterface $em) : Response {
             
@@ -47,6 +49,7 @@
 
 
         #[Route('/empresa/editar/{id}', name: 'EditarEmpresaController')]
+        #[IsGranted('ROLE_USER')]
 
         public function update($id, Request $request, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
             $empresa = $empresaRepository->find($id);
@@ -67,6 +70,7 @@
 
 
         #[Route('/empresa/excluir/{id}', name: 'ExcluirEmpresaController')]
+        #[IsGranted('ROLE_USER')]
 
         public function delete($id, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
             $empresa = $empresaRepository->find($id);

@@ -14,6 +14,7 @@
     class SocioController extends AbstractController {
 
         #[Route('/socio', name: 'SocioController')]
+        #[IsGranted('ROLE_USER')]
 
         public function read(SocioRepository $socioRepository) : Response {
             $data['socios'] = $socioRepository->findAll();
@@ -23,6 +24,7 @@
 
 
         #[Route('/socio/adicionar', name: 'AdicionarSocioController')]
+        #[IsGranted('ROLE_USER')]
 
         public function create(Request $request, EntityManagerInterface $em) : Response {
             $socio = new Socio();
@@ -42,6 +44,7 @@
 
 
         #[Route('/socio/editar/{id}', name: 'EditarSocioController')]
+        #[IsGranted('ROLE_USER')]
 
         public function update($id, Request $request, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
             $socio = $socioRepository->find($id);
@@ -61,6 +64,7 @@
 
 
         #[Route('/socio/excluir/{id}', name: 'ExcluirSocioController')]
+        #[IsGranted('ROLE_USER')]
 
         public function delete ($id, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
             $socio = $socioRepository->find($id);

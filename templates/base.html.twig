@@ -16,14 +16,16 @@
         <nav class="navbar navbar-expand navbar-dark bg-dark">
             <div class="container">
                 <a href="#" class="navbar-brand">SocioSync</a>
-
+                {% if is_granted('ROLE_USER') %}
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a href="{{path('EmpresaController')}}" class="nav-link">Empresas</a></li>
                         <li class="nav-item"><a href="{{path('SocioController')}}" class="nav-link">Sócios</a></li>
+                        <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link">Logout</a></li>
+                        <li class="nav-item"><span class="text-white">Olá, {{ app.user.nome }}, tudo bem?</span>
                     </ul>
                 </div>
-             
+                {% endif %}
             </div>    
         </nav>
 
