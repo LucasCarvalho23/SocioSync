@@ -1,37 +1,69 @@
 <?php 
 
     namespace App\Controller;
-    use App\Repository\EmpresaRepository;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Socio;
     use App\Form\SocioType;
+    use App\Repository\SocioRepository;
+    use Symfony\Component\HttpFoundation\Request; 
 
     class SocioController extends AbstractController {
 
         #[Route('/socio', name: 'SocioController')]
-        public function read(EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
-            $empresa = $empresaRepository->find(3);
-            $socio = new Socio();
-            $socio->setNome("Lucas Carvalho da Silva");
-            $socio->setCpf("11111111111");
-            $socio->setEmail("lucas@lucas.com.br");
-            $socio->setEmpresa($empresa);
-            $em->persist($socio);
-            $em->flush();
-            return new Response ("Vasco da Gama");
+        public function read(SocioRepository $socioRepository) : Response {
+            $data['socios'] = $socioRepository->findAll();
+            $data['title'] = 'Visualizar sócios';
+            return $this->render('socio/index.html.twig', $data);
         }
 
 
         #[Route('/socio/adicionar', name: 'AdicionarSocioController')]
-        public function create() : Response {
-            $form = $this->createForm(SocioType::class);
+        public function create(Request $request, EntityManagerInterface $em) : Response {
+            $socio = new Socio();
+            $form = $this->createForm(SocioType::class, $socio);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($socio);
+                $em->flush();
+                return $this->redirectToRoute('SocioController');
+            }
+
             $data['title'] = 'Adicionar novo sócio';
             $data['form'] = $form;
             return $this->render('socio/form.html.twig', $data);
         }
+
+
+        #[Route('/socio/editar/{id}', name: 'EditarSocioController')]
+        public function update($id, Request $request, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
+            $socio = $socioRepository->find($id);
+            $form = $this->createForm(SocioType::class, $socio);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
+                return $this->redirectToRoute('SocioController');
+            }
+
+            $data['title'] = 'Adicionar novo sócio';
+            $data['form'] = $form;
+            return $this->render('socio/form.html.twig', $data);
+
+        }
+
+
+        #[Route('/socio/excluir/{id}', name: 'ExcluirSocioController')]
+        public function delete ($id, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
+            $socio = $socioRepository->find($id);
+            $em->remove($socio);
+            $em->flush();
+            return $this->redirectToRoute('SocioController');
+        }
+
     }
 
 ?>

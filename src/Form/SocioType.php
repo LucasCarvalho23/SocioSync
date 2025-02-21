@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
             $builder->add('nome', TextType::class, ['label' => 'Nome completo: ']);
             $builder->add('cpf', TextType::class, ['label' => 'CPF: ']);
             $builder->add('email', TextType::class, ['label' => 'E-mail: ']);
-            $builder->add('empresa_id', EntityType::class, [
+            $builder->add('empresa', EntityType::class, [
                 'class' => Empresa::class,
                 'choice_label' => 'nome',
                 'label' => 'Empresa: '
