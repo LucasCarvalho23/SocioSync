@@ -9,10 +9,12 @@
     use App\Form\SocioType;
     use App\Repository\SocioRepository;
     use Symfony\Component\HttpFoundation\Request; 
+    use Symfony\Component\Security\Http\Attribute\IsGranted;
 
     class SocioController extends AbstractController {
 
         #[Route('/socio', name: 'SocioController')]
+
         public function read(SocioRepository $socioRepository) : Response {
             $data['socios'] = $socioRepository->findAll();
             $data['title'] = 'Visualizar sócios';
@@ -21,6 +23,7 @@
 
 
         #[Route('/socio/adicionar', name: 'AdicionarSocioController')]
+
         public function create(Request $request, EntityManagerInterface $em) : Response {
             $socio = new Socio();
             $form = $this->createForm(SocioType::class, $socio);
@@ -39,6 +42,7 @@
 
 
         #[Route('/socio/editar/{id}', name: 'EditarSocioController')]
+
         public function update($id, Request $request, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
             $socio = $socioRepository->find($id);
             $form = $this->createForm(SocioType::class, $socio);
@@ -57,6 +61,7 @@
 
 
         #[Route('/socio/excluir/{id}', name: 'ExcluirSocioController')]
+
         public function delete ($id, EntityManagerInterface $em, SocioRepository $socioRepository) : Response {
             $socio = $socioRepository->find($id);
             $em->remove($socio);

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\SocioRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,9 +14,23 @@ class Socio
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'Você precisa colocar um nome válido.',
+        maxMessage: 'Nome está grande demais. Reduza até 255 caracteres',
+    )]
     private ?string $nome = null;
 
     #[ORM\Column(length: 11)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 11,
+        minMessage: 'Você precisa colocar um CPF válido.',
+        maxMessage: 'CPF está grande demais.',
+    )]
     private ?string $cpf = null;
 
     #[ORM\Column(length: 255)]

@@ -9,10 +9,12 @@
     use App\Form\EmpresaType;
     use App\Repository\EmpresaRepository;
     use Symfony\Component\HttpFoundation\Request; 
+    use Symfony\Component\Security\Http\Attribute\IsGranted;
 
     class EmpresaController extends AbstractController {
 
         #[Route('/empresa', name: 'EmpresaController')]
+
         public function read(EmpresaRepository $empresaRepository) : Response {
 
             $data['empresas'] = $empresaRepository->findAll();
@@ -24,6 +26,7 @@
 
 
         #[Route('/empresa/adicionar', name: 'AdicionarEmpresaController')]
+
         public function create(Request $request, EntityManagerInterface $em) : Response {
             
             $empresa = new Empresa();
@@ -43,7 +46,8 @@
         }
 
 
-        #[Route('/empresa/editar/{id}', name: 'EditarEmpresaController')] 
+        #[Route('/empresa/editar/{id}', name: 'EditarEmpresaController')]
+
         public function update($id, Request $request, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
             $empresa = $empresaRepository->find($id);
             $form = $this->createForm(EmpresaType::class, $empresa);
@@ -62,7 +66,8 @@
         }
 
 
-        #[Route('/empresa/excluir/{id}', name: 'ExcluirEmpresaController')] 
+        #[Route('/empresa/excluir/{id}', name: 'ExcluirEmpresaController')]
+
         public function delete($id, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
             $empresa = $empresaRepository->find($id);
             $em->remove($empresa);
