@@ -33,6 +33,7 @@
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($empresa);
                 $em->flush();
+                return $this->redirectToRoute('EmpresaController');
             }
 
             $data['title'] = 'Adicionar nova empresa';
@@ -58,6 +59,15 @@
 
             return $this->render('empresa/form.html.twig', $data);
 
+        }
+
+
+        #[Route('/empresa/excluir/{id}', name: 'ExcluirEmpresaController')] 
+        public function delete($id, EntityManagerInterface $em, EmpresaRepository $empresaRepository) : Response {
+            $empresa = $empresaRepository->find($id);
+            $em->remove($empresa);
+            $em->flush();
+            return $this->redirectToRoute('EmpresaController');
         }
     }
 

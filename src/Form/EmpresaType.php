@@ -15,7 +15,7 @@
         }
         public function configureOptions(OptionsResolver $resolver) {
             $resolver->setDefaults([
-                'csrf_protection' => false, // Desativa a validação CSRF
+                'csrf_protection' => false, 
             ]);
         }
     }
