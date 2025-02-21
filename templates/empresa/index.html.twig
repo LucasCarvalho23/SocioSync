@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <h1> {{ title }} </h1>
+    <a href=" {{ path('AdicionarEmpresaController') }} " class="btn btn-primary">Adicionar</a>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Empresa</td>
+                    <td>CNPJ</td>
+                    <td>Ações</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empresa in empresas %}
+                    <tr>
+                        <td>{{empresa.nome}}</td>
+                        <td>{{empresa.cnpj}}</td>
+                        <td>
+                            <a href="#" class="btn btn-primary">Editar</a>
+                            <a href="#" class="btn btn-secondary">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

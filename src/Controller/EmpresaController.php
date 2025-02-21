@@ -7,18 +7,16 @@
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Empresa;
     use App\Form\EmpresaType;
+    use App\Repository\EmpresaRepository;
     use Symfony\Component\HttpFoundation\Request; 
 
     class EmpresaController extends AbstractController {
 
         #[Route('/empresa', name: 'EmpresaController')]
-        public function read(EntityManagerInterface $em) : Response {
-            $empresa = new Empresa();
-            $empresa->setNome('Lukhaz Produções');
-            $empresa->setCnpj('12345678912345');
-            $em->persist($empresa);
-            $em->flush();
-            return new Response ("Vasco");
+        public function read(EmpresaRepository $empresaRepository) : Response {
+            $data['empresas'] = $empresaRepository->findAll();
+            $data['title'] = 'Visualizar empresas';
+            return $this->render('empresa/index.html.twig', $data);
         }
 
 
